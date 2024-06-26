@@ -1,0 +1,31 @@
+numpy
+pandas
+scikit-learn
+datasets
+tqdm
+tensorboardX
+# torch==2.0.0
+torch==2.1.2   # gemma 7B
+# bitsandbytes==0.41.1 # llama2
+# bitsandbytes==0.41.3.post2 # mistral 0.2
+bitsandbytes==0.42.0 # gemma 7B
+# transformers==4.31 # llama2
+# transformers==4.36.1 # mistral 0.2
+# transformers==4.38.2 # gemma 7B
+transformers==4.40 # gemma 7B
+
+# peft==0.5.0
+# peft==0.7.1 # mistral 0.2
+peft==0.8.2 # gemma 7B
+# trl==0.7.2
+# trl==0.7.4
+trl==0.7.11 # gemma 7B
+#accelerate==0.23.0
+accelerate==0.26.1
+evaluate==0.4.1
+
+#model_name = "MaziyarPanahi/Mistral-7B-Instruct-v0.2"
+#model_name = "NousResearch/Llama-2-7b-hf"'
+#model_name = "mhenrichsen/gemma-7b"
+
+# dot forget to change this for gemma: target_modules="all-linear", #gemma
