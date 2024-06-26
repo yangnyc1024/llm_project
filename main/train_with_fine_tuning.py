@@ -18,6 +18,7 @@ from transformers import (AutoModelForCausalLM,
 
 from datetime import datetime
 import pytz
+import random
 
 
 class PEFTModelTrainer:
@@ -53,7 +54,14 @@ class PEFTModelTrainer:
             target_modules="all-linear", #gemma
             task_type="CAUSAL_LM"
         )
-
+    def set_seed(self, seed = 51):
+        random.seed(seed)
+        np.random.seed(seed)
+        torch.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)  # set seed for gpu
+        os.environ['PYTHONHASHSEED'] = str(seed)
+        torch.backends.cudnn.deterministic = True
+        torch.backends.cudnn.benchmark = False
     def setup_training_arguments(self):
         """
         Configures the training arguments.
@@ -79,15 +87,17 @@ class PEFTModelTrainer:
             group_by_length=True,
             lr_scheduler_type="cosine",
             report_to="tensorboard",
-            evaluation_strategy="epoch"
+            evaluation_strategy="epoch",
+            seed = 51
         )
-
     def train_model(self):
         """
         Executes the training process using PEFT.
         """
         peft_config = self.setup_peft_config()
+        self.set_seed()
         training_arguments = self.setup_training_arguments()
+
 
         # Initialize the custom PEFT Trainer
         trainer = SFTTrainer(
